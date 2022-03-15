@@ -242,7 +242,31 @@ public class Dictionnaire extends Observable {
 		*/
 
 		// A compléter
-		
+		//On enregistre le coeff du pivot
+		double coeffPivot= -D[iS][jE];
+		// On échange les coeffs des variables entrantes et sortantes dans la ligne pivot
+		D[iS][jE]=-1;
+		// On échange les variables entrantes et sortantes
+		int temp=tabVarHorsBase[jE];
+		tabVarHorsBase[jE] = tabVarBase[iS];
+		tabVarBase[iS] = temp;
+		// On divise la ligne pivot par le coeff du pivot
+		for(int j=0; j<=nbVarHorsBase; j++){
+			D[iS][j]=D[iS][j]/coeffPivot;
+		}
+		// On modifie toutes les autres lignes
+		for(int i=0; i<=nbVarBase; i++){
+			if(i!=iS){
+				coeffPivot=D[i][jE];
+				for(int j=0; j<=nbVarHorsBase; j++){
+					if(j!=jE){
+						D[i][j]+=D[iS][j]*coeffPivot;
+					}else{
+						D[i][j]=D[iS][j]*coeffPivot;
+					}
+				}
+			}
+		}
 	}
 
 	/**
