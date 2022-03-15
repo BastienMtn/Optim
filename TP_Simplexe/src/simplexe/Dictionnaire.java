@@ -286,11 +286,21 @@ public class Dictionnaire extends Observable {
 	 */
 	public int chercherIndiceVariableEntrantePlusGrandCoeff() {
 		// Deux lignes a supprimer
+		/*
 		Simplexe.sortie.println("Methode chercherIndiceVariableEntranteGrandCoeff a ecrire");
 		incomplet = true;
+		*/
 
 		// A modifier
-		return 0;
+		int output=0;
+		double coeffmax=0;
+		for(int i=1; i<=nbVarHorsBase; i++){
+			if(D[0][i]>0 && D[0][i]>coeffmax){
+				output=i;
+				coeffmax=D[0][i];
+			}
+		}
+		return output;
 	}
 
 	/**
@@ -311,11 +321,41 @@ public class Dictionnaire extends Observable {
 	 */
 	public int chercherIndiceVariableEntranteAvantageuse() {
 		// Deux lignes a supprimer
+		/*
 		Simplexe.sortie.println("Methode chercherIndiceVariableEntranteAvantageuse a ecrire");
 		incomplet = true;
+		*/
 
 		// A modifier
-		return 0;
+		int output=0;
+		double[] croissance=new double[nbVarHorsBase];
+		double contraintemin=Double.MAX_VALUE, contrainte=0, croissanceMax=0;
+		// On fait une boucle parcourant les variables hors base
+		for(int i=1; i<=nbVarHorsBase; i++){
+			// On ne prend que celles qui ont un coeff positifs
+			if(D[0][i]>0){
+				// On cherche la plus grosse contrainte pour cette variable, parmi les variables en base
+				for(int j=0; j<=nbVarBase; j++){
+					// On fait attention a ne pas diviser par 0 (on veut la plus contraignante de toutes facons)
+					if(D[j][i]!=0){
+						contrainte=-(D[j][0]/D[j][i]);
+						// Si la contrainte trouvée est plus contraignante, on enregistre dans le tableau
+						// contenant les croissances des variables hors base la nouvelle croissance associée
+						// à celle-ci.
+						if(contrainte<contraintemin){
+							croissance[i-1]=contrainte*D[0][i];
+						}
+					}
+				}
+			}
+		}
+		for(int i=0; i<nbVarHorsBase; i++){
+			if(croissance[i]>croissanceMax){
+				croissanceMax=croissance[i];
+				output=i;
+			}
+		}
+		return output;
 	}
 
 	/**
