@@ -328,6 +328,7 @@ public class Dictionnaire extends Observable {
 
 		// A modifier
 		int output=0;
+		boolean borne=false;
 		double[] croissance=new double[nbVarHorsBase];
 		double contraintemin=Double.MAX_VALUE, contrainte=0, croissanceMax=0;
 		// On fait une boucle parcourant les variables hors base
@@ -336,8 +337,10 @@ public class Dictionnaire extends Observable {
 			if(D[0][i]>0){
 				// On cherche la plus grosse contrainte pour cette variable, parmi les variables en base
 				for(int j=0; j<=nbVarBase; j++){
+					borne = false;
 					// On fait attention a ne pas diviser par 0 (on veut la plus contraignante de toutes facons)
-					if(D[j][i]!=0){
+					if(D[j][i]<0){
+						borne=true;
 						contrainte=-(D[j][0]/D[j][i]);
 						// Si la contrainte trouvée est plus contraignante, on enregistre dans le tableau
 						// contenant les croissances des variables hors base la nouvelle croissance associée
@@ -347,6 +350,7 @@ public class Dictionnaire extends Observable {
 						}
 					}
 				}
+				if(borne==false) return -1;
 			}
 		}
 		for(int i=0; i<nbVarHorsBase; i++){
@@ -375,11 +379,20 @@ public class Dictionnaire extends Observable {
 	 */
 	public int chercherIndiceVariableEntrantePlusPetitNumero() {
 		// Deux lignes a supprimer
+		/*
 		Simplexe.sortie.println("Methode chercherIndiceVariableEntrantePlusPetitNumero a ecrire");
 		incomplet = true;
+		*/
 
 		// A modifier
-		return 0;
+		int output=0, indiceMin=nbVarHorsBase;
+		for(int i=1; i<=nbVarHorsBase; i++){
+			if(D[0][i]>0 && tabVarHorsBase[i]<indiceMin){
+				output=i;
+				indiceMin=tabVarHorsBase[i];
+			}
+		}
+		return output;
 	}
 
 	/**
@@ -400,13 +413,27 @@ public class Dictionnaire extends Observable {
 	 */
 	public int chercherIndiceVariableSortantePlusPetitNumero(int jE) {
 		// Deux lignes a supprimer
+		/*
 		Simplexe.sortie.println("Methode chercherIndiceVariableSortantePlusPetitNumero a ecrire");
 		incomplet = true;
+		*/
 
 		// A modifier
-		return 0;
-
+		int output=-1;
+		double MIN=Double.MAX_VALUE;
+		for(int i=1; i<=nbVarBase; i++){
+			if(D[i][jE]<0){
+				if(-(D[i][0]/D[i][jE])<MIN){
+					output = i;
+					MIN=-(D[i][0]/D[i][jE]);
+				}else if(-(D[i][0]/D[i][jE])==MIN && tabVarBase[i]<tabVarBase[output]){
+					output = i;
+				}
+			}
+		}
+		return output;
 	}
+
 	// FIN DES METHODES A COMPLETER
 
 	public int chercherIndiceVariableEntrante(MethodeEntrante methode) {
