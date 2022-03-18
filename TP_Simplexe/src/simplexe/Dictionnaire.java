@@ -364,8 +364,7 @@ public class Dictionnaire extends Observable {
 
 	/**
 	 * A IMPLEMENTER : cherche l'indice de la variable entrante de plus petit numero
-	 * (la variable x_i
-	 * a pour numero i). Sert quand on utilise la regle de Bland.
+	 * (la variable x_i a pour numero i). Sert quand on utilise la regle de Bland.
 	 * <br>
 	 * Par exemple, si tabVarHorsBase contient a partir de l'indice 1 les numeros 6,
 	 * 7, 2, 3, 5 et si les variables candidates
@@ -385,6 +384,24 @@ public class Dictionnaire extends Observable {
 		*/
 
 		// A modifier
+
+		int output=0;
+		double coeffmax=0;
+		for(int i=1; i<=nbVarHorsBase; i++){
+			if(D[0][i]>0 && D[0][i]>=coeffmax){
+				if(D[0][i]==coeffmax){
+					if(output!=0 && tabVarHorsBase[i]<tabVarHorsBase[output]){
+						output=i;
+					}
+				}else{
+					output=i;
+					coeffmax=D[0][i];
+				}
+			}
+		}
+		return output;
+
+		/*
 		int output=0, indiceMin=nbVarHorsBase;
 		for(int i=1; i<=nbVarHorsBase; i++){
 			if(D[0][i]>0 && tabVarHorsBase[i]<indiceMin){
@@ -393,6 +410,7 @@ public class Dictionnaire extends Observable {
 			}
 		}
 		return output;
+		*/
 	}
 
 	/**
