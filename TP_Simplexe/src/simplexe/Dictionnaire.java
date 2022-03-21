@@ -98,15 +98,15 @@ public class Dictionnaire extends Observable {
 	public boolean estRealisable() {
 		// Deux lignes suivantes a supprimer
 		/*
-		Simplexe.sortie.println("Methode estRealisable a ecrire");
-		incomplet = true;
-		*/
+		 * Simplexe.sortie.println("Methode estRealisable a ecrire");
+		 * incomplet = true;
+		 */
 
 		// A modifier
-		boolean output=true;
-		//On commence par produire le problème auxiliaire
-		for(int j=1; j<=nbVarBase; j++){
-			output = output && (D[j][0]>=0);
+		boolean output = true;
+		// On commence par produire le problème auxiliaire
+		for (int j = 1; j <= nbVarBase; j++) {
+			output = output && (D[j][0] >= 0);
 		}
 
 		return output;
@@ -138,15 +138,16 @@ public class Dictionnaire extends Observable {
 	public int chercherPremierIndiceVariableEntrante() {
 		// Deux lignes suivantes a supprimer
 		/*
-		Simplexe.sortie.println("Methode chercherPremierIndiceVariableEntrante a ecrire");
-		incomplet = true;
-		*/
+		 * Simplexe.sortie.
+		 * println("Methode chercherPremierIndiceVariableEntrante a ecrire");
+		 * incomplet = true;
+		 */
 
 		// A modifier
-		int output=0;
-		for(int i=1; i<=nbVarHorsBase; i++){
-			if(D[0][i]>0){
-				output=i;
+		int output = 0;
+		for (int i = 1; i <= nbVarHorsBase; i++) {
+			if (D[0][i] > 0) {
+				output = i;
 				break;
 			}
 		}
@@ -171,19 +172,20 @@ public class Dictionnaire extends Observable {
 	public int chercherIndiceVariableSortante(int jE) {
 		// Trois lignes suivantes a supprimer
 		/*
-		Simplexe.sortie.println("\nLa variable entrante : x" + this.tabVarHorsBase[jE]);
-		Simplexe.sortie.println("Methode chercherIndiceVariableSortante a ecrire");
-		incomplet = true;
-		*/
+		 * Simplexe.sortie.println("\nLa variable entrante : x" +
+		 * this.tabVarHorsBase[jE]);
+		 * Simplexe.sortie.println("Methode chercherIndiceVariableSortante a ecrire");
+		 * incomplet = true;
+		 */
 
 		// A modifier
-		int output=0;
-		double MIN=Double.MAX_VALUE;
-		for(int i=1; i<=nbVarBase; i++){
-			if(D[i][jE]<0){
-				if(-(D[i][0]/D[i][jE])<MIN){
-					output =i;
-					MIN=-(D[i][0]/D[i][jE]);
+		int output = 0;
+		double MIN = Double.MAX_VALUE;
+		for (int i = 1; i <= nbVarBase; i++) {
+			if (D[i][jE] < 0) {
+				if (-(D[i][0] / D[i][jE]) < MIN) {
+					output = i;
+					MIN = -(D[i][0] / D[i][jE]);
 				}
 			}
 		}
@@ -237,32 +239,33 @@ public class Dictionnaire extends Observable {
 	public void pivoter(int iS, int jE) {
 		// Deux lignes suivantes a supprimer
 		/*
-		Simplexe.sortie.println("Methode pivoter a ecrire");
-		incomplet = true;
-		*/
+		 * Simplexe.sortie.println("Methode pivoter a ecrire");
+		 * incomplet = true;
+		 */
 
 		// A compléter
-		//On enregistre le coeff du pivot
-		double coeffPivot= -D[iS][jE];
-		// On échange les coeffs des variables entrantes et sortantes dans la ligne pivot
-		D[iS][jE]=-1;
+		// On enregistre le coeff du pivot
+		double coeffPivot = -D[iS][jE];
+		// On échange les coeffs des variables entrantes et sortantes dans la ligne
+		// pivot
+		D[iS][jE] = -1;
 		// On échange les variables entrantes et sortantes
-		int temp=tabVarHorsBase[jE];
+		int temp = tabVarHorsBase[jE];
 		tabVarHorsBase[jE] = tabVarBase[iS];
 		tabVarBase[iS] = temp;
 		// On divise la ligne pivot par le coeff du pivot
-		for(int j=0; j<=nbVarHorsBase; j++){
-			D[iS][j]=D[iS][j]/coeffPivot;
+		for (int j = 0; j <= nbVarHorsBase; j++) {
+			D[iS][j] = D[iS][j] / coeffPivot;
 		}
 		// On modifie toutes les autres lignes
-		for(int i=0; i<=nbVarBase; i++){
-			if(i!=iS){
-				coeffPivot=D[i][jE];
-				for(int j=0; j<=nbVarHorsBase; j++){
-					if(j!=jE){
-						D[i][j]+=D[iS][j]*coeffPivot;
-					}else{
-						D[i][j]=D[iS][j]*coeffPivot;
+		for (int i = 0; i <= nbVarBase; i++) {
+			if (i != iS) {
+				coeffPivot = D[i][jE];
+				for (int j = 0; j <= nbVarHorsBase; j++) {
+					if (j != jE) {
+						D[i][j] += D[iS][j] * coeffPivot;
+					} else {
+						D[i][j] = D[iS][j] * coeffPivot;
 					}
 				}
 			}
@@ -287,17 +290,18 @@ public class Dictionnaire extends Observable {
 	public int chercherIndiceVariableEntrantePlusGrandCoeff() {
 		// Deux lignes a supprimer
 		/*
-		Simplexe.sortie.println("Methode chercherIndiceVariableEntranteGrandCoeff a ecrire");
-		incomplet = true;
-		*/
+		 * Simplexe.sortie.
+		 * println("Methode chercherIndiceVariableEntranteGrandCoeff a ecrire");
+		 * incomplet = true;
+		 */
 
 		// A modifier
-		int output=0;
-		double coeffmax=0;
-		for(int i=1; i<=nbVarHorsBase; i++){
-			if(D[0][i]>0 && D[0][i]>coeffmax){
-				output=i;
-				coeffmax=D[0][i];
+		int output = 0;
+		double coeffmax = 0;
+		for (int i = 1; i <= nbVarHorsBase; i++) {
+			if (D[0][i] > 0 && D[0][i] > coeffmax) {
+				output = i;
+				coeffmax = D[0][i];
 			}
 		}
 		return output;
@@ -322,41 +326,47 @@ public class Dictionnaire extends Observable {
 	public int chercherIndiceVariableEntranteAvantageuse() {
 		// Deux lignes a supprimer
 		/*
-		Simplexe.sortie.println("Methode chercherIndiceVariableEntranteAvantageuse a ecrire");
-		incomplet = true;
-		*/
+		 * Simplexe.sortie.
+		 * println("Methode chercherIndiceVariableEntranteAvantageuse a ecrire");
+		 * incomplet = true;
+		 */
 
 		// A modifier
-		int output=0;
-		boolean borne=false;
-		double[] croissance=new double[nbVarHorsBase];
-		double contraintemin=Double.MAX_VALUE, contrainte=0, croissanceMax=0;
+		int output = 0;
+		boolean borne = false;
+		double[] croissance = new double[nbVarHorsBase];
+		double contraintemin = Double.MAX_VALUE, contrainte = 0, croissanceMax = 0;
 		// On fait une boucle parcourant les variables hors base
-		for(int i=1; i<=nbVarHorsBase; i++){
+		for (int i = 1; i <= nbVarHorsBase; i++) {
 			// On ne prend que celles qui ont un coeff positifs
-			if(D[0][i]>0){
-				// On cherche la plus grosse contrainte pour cette variable, parmi les variables en base
-				for(int j=0; j<=nbVarBase; j++){
+			if (D[0][i] > 0) {
+				// On cherche la plus grosse contrainte pour cette variable, parmi les variables
+				// en base
+				for (int j = 0; j <= nbVarBase; j++) {
 					borne = false;
-					// On fait attention a ne pas diviser par 0 (on veut la plus contraignante de toutes facons)
-					if(D[j][i]<0){
-						borne=true;
-						contrainte=-(D[j][0]/D[j][i]);
-						// Si la contrainte trouvée est plus contraignante, on enregistre dans le tableau
-						// contenant les croissances des variables hors base la nouvelle croissance associée
+					// On fait attention a ne pas diviser par 0 (on veut la plus contraignante de
+					// toutes facons)
+					if (D[j][i] < 0) {
+						borne = true;
+						contrainte = -(D[j][0] / D[j][i]);
+						// Si la contrainte trouvée est plus contraignante, on enregistre dans le
+						// tableau
+						// contenant les croissances des variables hors base la nouvelle croissance
+						// associée
 						// à celle-ci.
-						if(contrainte<contraintemin){
-							croissance[i-1]=contrainte*D[0][i];
+						if (contrainte < contraintemin) {
+							croissance[i - 1] = contrainte * D[0][i];
 						}
 					}
 				}
-				if(borne==false) return -1;
+				if (borne == false)
+					return -1;
 			}
 		}
-		for(int i=0; i<nbVarHorsBase; i++){
-			if(croissance[i]>croissanceMax){
-				croissanceMax=croissance[i];
-				output=i;
+		for (int i = 0; i < nbVarHorsBase; i++) {
+			if (croissance[i] > croissanceMax) {
+				croissanceMax = croissance[i];
+				output = i;
 			}
 		}
 		return output;
@@ -379,38 +389,38 @@ public class Dictionnaire extends Observable {
 	public int chercherIndiceVariableEntrantePlusPetitNumero() {
 		// Deux lignes a supprimer
 		/*
-		Simplexe.sortie.println("Methode chercherIndiceVariableEntrantePlusPetitNumero a ecrire");
-		incomplet = true;
-		*/
+		 * Simplexe.sortie.
+		 * println("Methode chercherIndiceVariableEntrantePlusPetitNumero a ecrire");
+		 * incomplet = true;
+		 */
 
 		// A modifier
-
-		int output=0;
-		double coeffmax=0;
-		for(int i=1; i<=nbVarHorsBase; i++){
-			if(D[0][i]>0 && D[0][i]>=coeffmax){
-				if(D[0][i]==coeffmax){
-					if(output!=0 && tabVarHorsBase[i]<tabVarHorsBase[output]){
-						output=i;
-					}
-				}else{
-					output=i;
-					coeffmax=D[0][i];
-				}
-			}
-		}
-		return output;
-
 		/*
-		int output=0, indiceMin=nbVarHorsBase;
-		for(int i=1; i<=nbVarHorsBase; i++){
-			if(D[0][i]>0 && tabVarHorsBase[i]<indiceMin){
-				output=i;
-				indiceMin=tabVarHorsBase[i];
+		 * int output=0;
+		 * double coeffmax=0;
+		 * for(int i=1; i<=nbVarHorsBase; i++){
+		 * if(D[0][i]>0 && D[0][i]>=coeffmax){
+		 * if(D[0][i]==coeffmax){
+		 * if(output!=0 && tabVarHorsBase[i]<tabVarHorsBase[output]){
+		 * output=i;
+		 * }
+		 * }else{
+		 * output=i;
+		 * coeffmax=D[0][i];
+		 * }
+		 * }
+		 * }
+		 * return output;
+		 */
+
+		int output = 0, indiceMin = nbVarHorsBase + nbVarBase;
+		for (int i = 1; i <= nbVarHorsBase; i++) {
+			if (D[0][i] > 0 && tabVarHorsBase[i] < indiceMin) {
+				output = i;
+				indiceMin = tabVarHorsBase[i];
 			}
 		}
 		return output;
-		*/
 	}
 
 	/**
@@ -432,19 +442,20 @@ public class Dictionnaire extends Observable {
 	public int chercherIndiceVariableSortantePlusPetitNumero(int jE) {
 		// Deux lignes a supprimer
 		/*
-		Simplexe.sortie.println("Methode chercherIndiceVariableSortantePlusPetitNumero a ecrire");
-		incomplet = true;
-		*/
+		 * Simplexe.sortie.
+		 * println("Methode chercherIndiceVariableSortantePlusPetitNumero a ecrire");
+		 * incomplet = true;
+		 */
 
 		// A modifier
-		int output=-1;
-		double MIN=Double.MAX_VALUE;
-		for(int i=1; i<=nbVarBase; i++){
-			if(D[i][jE]<0){
-				if(-(D[i][0]/D[i][jE])<MIN){
+		int output = -1;
+		double MIN = Double.MAX_VALUE;
+		for (int i = 1; i <= nbVarBase; i++) {
+			if (D[i][jE] < 0) {
+				if (-(D[i][0] / D[i][jE]) < MIN) {
 					output = i;
-					MIN=-(D[i][0]/D[i][jE]);
-				}else if(-(D[i][0]/D[i][jE])==MIN && tabVarBase[i]<tabVarBase[output]){
+					MIN = -(D[i][0] / D[i][jE]);
+				} else if (-(D[i][0] / D[i][jE]) == MIN && tabVarBase[i] < tabVarBase[output]) {
 					output = i;
 				}
 			}
